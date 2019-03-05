@@ -80,6 +80,30 @@ go get -u github.com/disintegration/imaging
 ```
 
 ```
+dstImage = imaging.AdjustFunc(
+  srcImage,
+  func(c color.NRGBA) color.NRGBA {
+    r := int(c.R) + 16
+    if r > 255 {
+      r = 255
+    }
+    return color.NRGBA{uint8(r), c.G, c.B, c.A}
+  }
+)
+
+
+img, err := imaging.Open("test.jpg")
+
+img, err := imaging.Open("test.jpg", imaging.AutoOrientation(true))
+
+dstImage := imaging.Overlay(backgroundImage, spriteImage, image.Pt(50, 50), 1.0)
+
+dstImage := imaging.Overlay(imageOne, imageTwo, image.Pt(0, 0), 0.5)
+
+type ResampleFilter struct {
+  Support float64
+  Kernel func(float64) float64
+}
 ```
 
 
